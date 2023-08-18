@@ -14,4 +14,8 @@ class MyTheme {
   static ThemeData darkTheme(BuildContext context)=> ThemeData(
     brightness: Brightness.dark,
   );
+
+
+  static Color darkblue = Colors.indigoAccent;
+  static Color grey= Colors.blueGrey;
 }

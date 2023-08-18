@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:new_app/widgets/theme.dart';
 import 'dart:convert';
 import 'models/catalog.dart';
 import 'widgets/drawer.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import 'package:new_app/models/catalog.dart';
 import 'package:new_app/widgets/drawer.dart';
@@ -39,23 +41,104 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Catalog App", style: TextStyle(color: Colors.black),),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
-            ? ListView.builder(
-          itemCount: CatalogModel.items.length,
-          itemBuilder: (context, index) => ItemWidget(
-            item: CatalogModel.items[index],
+          body: SafeArea(
+            child: Container(
+              padding: Vx.m32,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CatalogHeader(),
+                  if(CatalogModel.items!=null && CatalogModel.items.isNotEmpty)
+                    CatalogList().expand()
+                  else
+                    Center(
+                      child: CircularProgressIndicator(),
+                    )
+                ]
+              ),
+            ),
           ),
-        )
-            : Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
-      drawer: MyDrawer(),
     );
   }
 }
+
+class CatalogHeader extends StatelessWidget {
+  const CatalogHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          "Catalog App".text.xl5.bold.color(MyTheme.darkblue).make(),
+          15.heightBox,
+          "Trending Products".text.xl.make(),
+        ]
+    );
+  }
+}
+
+class CatalogList extends StatelessWidget {
+  const CatalogList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        itemCount: CatalogModel.items.length,
+      itemBuilder: (context,index){
+          final catalog = CatalogModel.items[index];
+          return CatalogItem(catalog: catalog);
+      },
+    );
+
+
+  }
+}
+
+class CatalogItem extends StatelessWidget {
+  final Item catalog;
+  const CatalogItem({Key? key, required this.catalog}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return VxBox(
+      child: Row(
+        children: [
+          Image.network(
+            catalog.image,
+          ).box.rounded.p8.color(MyTheme.grey).make().p16().w40(context),
+          Expanded(child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              catalog.name.text.bold.make(),
+              catalog.desc.text.textStyle(context.captionStyle).make(),
+              15.heightBox,
+              ButtonBar(
+                alignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  "\$${catalog.price}".text.bold.xl.make(),
+                  ElevatedButton(onPressed: () {},
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          MyTheme.darkblue,
+                        ),
+                        shape: MaterialStateProperty.all(
+                          StadiumBorder(),
+                        )
+                      ),
+                      child: "Buy".text.make())
+                ],
+              )
+            ]
+          ),
+
+          )
+        ],
+
+      )
+    ).white.rounded.square(150).make().py16();
+  }
+}
+
+
