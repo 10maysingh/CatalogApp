@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:new_app/cart_page.dart';
 import 'package:new_app/widgets/theme.dart';
 import 'home_page.dart';
 import 'login_page.dart';
 import 'utils/routes.dart';
 import 'widgets/theme.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 void main() {
   runApp(myApp());
@@ -16,14 +19,21 @@ class myApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       themeMode: ThemeMode.light,
-      theme: MyTheme.lightTheme(context),
+      theme: ThemeData(
+    textTheme: GoogleFonts.workSansTextTheme(
+    Theme.of(context).textTheme,
+    ),
+      ),
+
       darkTheme: MyTheme.darkTheme(context),
       debugShowCheckedModeBanner: false,
+
 
       routes:{
         "/": (context)=>HomePage(),
         Routes.homeRoute:(context)=>HomePage(),
         Routes.loginRoute:(context)=>LoginPage(),
+        Routes.cartRoute:(context)=>CartPage(),
       },
     );
   }
