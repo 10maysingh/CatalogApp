@@ -16,6 +16,6 @@ class MyTheme {
   );
 
 
-  static Color darkblue = Colors.indigoAccent;
-  static Color grey= Colors.blueGrey;
+  static Color darkblue = Colors.cyan;
+  static Color grey= Colors.tealAccent;
 }
