@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'lib/models/catalog.dart';
+import 'dart:convert';
 
 class CatalogModel {
   static List<Item> items = [
@@ -10,9 +11,14 @@ class CatalogModel {
       price: 119999,
       color: "#33505a",
       image: "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/h/r/e/-original-imaghxeeme2n7hy7.jpeg?q=70",
-
     )
+
   ];
+
+  Item getById(int id) =>
+      items.firstWhere((element) => element.id ==id, orElse: null);
+
+  Item getByPosition(int pos) => items[pos];
 }
 class Item {
   final int id;

@@ -39,6 +39,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.cardColor,
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.pushNamed(context, Routes.cartRoute),
       child: Icon(Icons.shopping_cart),
@@ -136,7 +137,8 @@ class CatalogItem extends StatelessWidget {
                           StadiumBorder(),
                         )
                       ),
-                      child: "Add to cart".text.make()),
+                      child: "Add to cart".text.make()
+                  ),
                 ],
               )
             ]
