@@ -37,7 +37,7 @@ class _CartTotal extends StatelessWidget {
         children: [
           VxBuilder(
             mutations: {RemoveMutation},
-            builder: (context, _) {
+            builder: (context, store, status) {
               return "\$${_cart.totalPrice}"
                   .text
                   .xl5

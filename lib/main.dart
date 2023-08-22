@@ -32,7 +32,7 @@ class myApp extends StatelessWidget {
 
 
       routes:{
-        "/": (context)=>HomePage(),
+        "/": (context)=>LoginPage(),
         Routes.homeRoute:(context)=>HomePage(),
         Routes.loginRoute:(context)=>LoginPage(),
         Routes.cartRoute:(context)=>CartPage(),
