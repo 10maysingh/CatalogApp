@@ -14,8 +14,9 @@ class CartModel{
 
 
   set catalog(CatalogModel newCatalog){
-    _catalog = newCatalog;
+
     assert(newCatalog != null);
+    _catalog = newCatalog;
   }
 
   List<Item> get items => _itemIds.map((id) => _catalog.getById(id)).toList();
@@ -34,7 +35,7 @@ class AddMutation extends VxMutation<MyStore>{
   AddMutation(this.item);
   @override
   perform(){
-    store?.cart._itemIds.add(item.id);
+    store!.cart._itemIds.add(item.id);
   }
 }
 
@@ -44,6 +45,6 @@ class RemoveMutation extends VxMutation<MyStore>{
   RemoveMutation(this.item);
   @override
   perform(){
-    store?.cart._itemIds.add(item.id);
+    store!.cart._itemIds.remove(item.id);
   }
 }

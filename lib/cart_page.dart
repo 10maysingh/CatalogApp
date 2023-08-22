@@ -29,6 +29,7 @@ class _CartTotal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CartModel _cart = (VxState.store as MyStore).cart;
+
     return SizedBox(
       height: 200,
       child: Row(
@@ -40,10 +41,13 @@ class _CartTotal extends StatelessWidget {
               return "\$${_cart.totalPrice}"
                   .text
                   .xl5
-                  .color(context.theme.accentColor)
+                  .color(context.theme.hintColor)
                   .make();
+
             },
           ),
+
+
           30.widthBox,
           ElevatedButton(
             onPressed: () {
@@ -53,7 +57,7 @@ class _CartTotal extends StatelessWidget {
             },
             style: ButtonStyle(
                 backgroundColor:
-                MaterialStateProperty.all(context.theme.buttonColor)),
+                MaterialStateProperty.all(Colors.cyan)),
             child: "Buy".text.white.make(),
           ).w32(context)
         ],

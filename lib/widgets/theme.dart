@@ -4,6 +4,10 @@ import 'package:velocity_x/velocity_x.dart';
 class MyTheme {
   static ThemeData lightTheme(BuildContext context)=> ThemeData(
   primarySwatch: Colors.purple,
+  hintColor: darkblue,
+  buttonTheme: ButtonThemeData(
+    buttonColor: darkblue,
+  ),
   appBarTheme: AppBarTheme(
   color: Colors.white,
   elevation: 0.0,

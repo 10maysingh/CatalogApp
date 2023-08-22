@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class CatalogHeader extends StatelessWidget {
-  const CatalogHeader({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -85,8 +85,20 @@ class CatalogHeader extends StatelessWidget {
   }
 }
 
+class CatalogImage extends StatelessWidget {
+  final String image;
+
+  const CatalogImage({Key? key, required this.image}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(
+      image,
+    ).box.rounded.p8.color(context.canvasColor).make().p16().w40(context);
+  }
+}
+
 class CatalogList extends StatelessWidget {
-  const CatalogList({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +118,9 @@ class CatalogList extends StatelessWidget {
 
 class CatalogItem extends StatelessWidget {
   final Item catalog;
-  const CatalogItem({Key? key, required this.catalog}) : super(key: key);
+  const CatalogItem({Key? key, required this.catalog}) :
+        assert(catalog!=null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {

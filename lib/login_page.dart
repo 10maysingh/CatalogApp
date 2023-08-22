@@ -10,6 +10,22 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage>{
 
   String name = "";
+  bool changeButton = false;
+
+  final _formKey = GlobalKey<FormState>();
+
+  moveToHome(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        changeButton = true;
+      });
+      await Future.delayed(Duration(seconds: 1));
+      await Navigator.pushNamed(context, Routes.homeRoute);
+      setState(() {
+        changeButton = false;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Material(

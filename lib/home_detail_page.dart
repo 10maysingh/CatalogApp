@@ -8,7 +8,9 @@ import 'models/catalog.dart';
 class HomeDetailPage extends StatelessWidget {
   final Item catalog;
 
-  const HomeDetailPage({Key? key, required this.catalog}) : super(key: key);
+  const HomeDetailPage({Key? key, required this.catalog})
+       : assert(catalog!=null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +39,8 @@ class HomeDetailPage extends StatelessWidget {
         ).h32(context),
         Expanded(child: VxArc(
           height: 30.0,
-          arcType: VxArcType.CONVEY,
-          edge: VxEdge.TOP,
+          arcType: VxArcType.convey,
+          edge: VxEdge.top,
           child: Container(
             color: Color(0xffc9fffc),
             width: context.screenWidth,
