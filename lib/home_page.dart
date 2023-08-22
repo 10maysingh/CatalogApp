@@ -4,6 +4,8 @@ import 'package:new_app/home_detail_page.dart';
 import 'package:new_app/utils/routes.dart';
 import 'package:new_app/widgets/theme.dart';
 import 'dart:convert';
+import 'add_to_cart.dart';
+import 'models/cart.dart';
 import 'models/catalog.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -128,17 +130,7 @@ class CatalogItem extends StatelessWidget {
                 alignment: MainAxisAlignment.spaceBetween,
                 children: [
                   "\$${catalog.price}".text.bold.xl.make(),
-                  ElevatedButton(onPressed: () {},
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          MyTheme.darkblue,
-                        ),
-                        shape: MaterialStateProperty.all(
-                          StadiumBorder(),
-                        )
-                      ),
-                      child: "Add to cart".text.make()
-                  ),
+                  AddToCart(catalog: catalog),
                 ],
               )
             ]
@@ -151,5 +143,8 @@ class CatalogItem extends StatelessWidget {
     ).white.rounded.square(150).make().py16();
   }
 }
+
+
+
 
 

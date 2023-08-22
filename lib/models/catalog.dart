@@ -3,6 +3,7 @@ import 'lib/models/catalog.dart';
 import 'dart:convert';
 
 class CatalogModel {
+
   static List<Item> items = [
     Item(
       id: 1,
