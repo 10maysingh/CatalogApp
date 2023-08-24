@@ -31,10 +31,10 @@ class _HomePageState extends State<HomePage> {
 
   loadData() async {
     await Future.delayed(Duration(seconds: 2));
-    // final catalogJson =
-    // await rootBundle.loadString("assets/files/catalog.json");
-    final response = await http.get(Uri.parse(url));
-    final catalogJson = response.body;
+    final catalogJson =
+    await rootBundle.loadString("assets/files/catalog.json");
+    // final response = await http.get(Uri.parse(url));
+    // final catalogJson = response.body;
     final decodedData = jsonDecode(catalogJson);
     var productsData = decodedData["products"];
     CatalogModel.items = List.from(productsData)
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
           size: 22,
           count: _cart.items.length,
           textStyle: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontWeight: FontWeight.bold,
           )
         ),
@@ -96,7 +96,7 @@ class CatalogHeader extends StatelessWidget {
         children: [
           "Catalog App".text.xl5.bold.color(MyTheme.darkblue).make(),
           15.heightBox,
-          "Trending Products".text.xl.make(),
+          "Your Wishlist".text.xl.make(),
           15.heightBox,
         ]
     );
@@ -111,7 +111,9 @@ class CatalogImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.network(
       image,
-    ).box.rounded.p8.color(context.canvasColor).make().p16().w40(context);
+    ).box.rounded.p8.color(Color(0xffFFFCC9)).make().p16().wPCT(
+        context: context,
+        widthPCT: context.isMobile?40:20);
   }
 }
 
@@ -120,7 +122,19 @@ class CatalogList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return !context.isMobile ? GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,crossAxisSpacing: 20.0),
+      shrinkWrap: true,
+      itemCount: CatalogModel.items.length,
+      itemBuilder: (context,index){
+        final catalog = CatalogModel.items[index];
+        return InkWell(
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeDetailPage(catalog: catalog,))),
+            child: CatalogItem(catalog: catalog));
+      },
+    ):ListView.builder(
+      shrinkWrap: true,
         itemCount: CatalogModel.items.length,
       itemBuilder: (context,index){
           final catalog = CatalogModel.items[index];
@@ -142,37 +156,42 @@ class CatalogItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return VxBox(
-      child: Row(
-        children: [
-          Hero(
-            tag: Key(catalog.id.toString()),
-            child: Image.network(
-              catalog.image,
-            ).box.rounded.p8.color(MyTheme.grey).make().p16().w40(context),
-          ),
-          Expanded(child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              catalog.name.text.bold.make(),
-              catalog.desc.text.textStyle(context.captionStyle).make(),
-
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  "\$${catalog.price}".text.bold.xl.make(),
-                  AddToCart(catalog: catalog),
-                ],
-              )
-            ]
-          ),
-
-          )
-        ],
-
+    var children2 = [
+      Hero(
+        tag: Key(catalog.id.toString()),
+        child: CatalogImage(
+          image: catalog.image,
+        ),
+      ),
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            catalog.name.text.lg.color(context.accentColor).bold.make(),
+            catalog.desc.text.textStyle(context.captionStyle).make(),
+            10.heightBox,
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              buttonPadding: EdgeInsets.zero,
+              children: [
+                "\₹${catalog.price}".text.bold.xl.make(),
+                AddToCart(catalog: catalog)
+              ],
+            ).pOnly(right: 8.0)
+          ],
+        ).p(context.isMobile ? 0 : 16),
       )
-    ).white.rounded.square(150).make().py16();
+    ];
+    return VxBox(
+      child: context.isMobile
+          ? Row(
+        children: children2,
+      )
+          : Column(
+        children: children2,
+      ),
+    ).color(context.cardColor).rounded.square(150).make().py16();
   }
 }
 

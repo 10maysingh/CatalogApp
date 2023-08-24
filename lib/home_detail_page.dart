@@ -16,15 +16,15 @@ class HomeDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffc9ccff ),
+        backgroundColor: Color(0xff4169e1),
       ),
       backgroundColor: MyTheme.grey,
     bottomNavigationBar: Container(
-      color: Color(0xffc9fffc),
+      color: Color(0xffB9E9FC),
       child: ButtonBar(
         alignment: MainAxisAlignment.spaceBetween,
         children: [
-          "\$${catalog.price}".text.bold.xl5.make(),
+          "\₹${catalog.price}".text.bold.xl5.make(),
           AddToCart(catalog: catalog).wh(120,50),
         ],
       ).p32(),
@@ -42,7 +42,7 @@ class HomeDetailPage extends StatelessWidget {
           arcType: VxArcType.convey,
           edge: VxEdge.top,
           child: Container(
-            color: Color(0xffc9fffc),
+            color: Color(0xffB9E9FC),
             width: context.screenWidth,
             child: Column(
               children: [
